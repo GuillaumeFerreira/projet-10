@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from softdesk.views import ProjectsViewset
+from softdesk.views import ProjectsViewset, RegisterView
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -20,5 +20,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/register/', RegisterView.as_view(), name='auth_register'),
     path('api/', include(router.urls))
 ]
