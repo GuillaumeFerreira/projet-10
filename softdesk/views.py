@@ -14,7 +14,7 @@ class ProjectsViewset(ReadOnlyModelViewSet):
     authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get_queryset(self):
-        return Projects.objects.all()
+        return Projects.objects.filter(author_user_id=self.request.user)
 
     def get(self, request, format=None):
         content = {
