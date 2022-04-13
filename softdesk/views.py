@@ -8,6 +8,7 @@ from rest_framework import generics
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.contrib.auth.models import User
 
+
 class ProjectsViewset(ReadOnlyModelViewSet):
 
     serializer_class = ProjectsSerializer
@@ -27,6 +28,7 @@ class ProjectsViewset(ReadOnlyModelViewSet):
 
 
 class RegisterView(generics.CreateAPIView):
+
     queryset = User.objects.all()
     permission_classes = [AllowAny]
     serializer_class = RegisterSerializer
