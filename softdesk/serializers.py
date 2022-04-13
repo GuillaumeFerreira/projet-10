@@ -1,15 +1,48 @@
 from rest_framework.serializers import ModelSerializer
-from softdesk.models import Projects
+from softdesk.models import Projects, Contributors
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework.validators import UniqueValidator
 from django.contrib.auth.password_validation import validate_password
 
 class ProjectsSerializer(ModelSerializer):
+
     class Meta:
         model = Projects
-        fields = ['id','author_user_id', 'title']
+        fields = ['id', 'title','description','type']
 
+
+    def create(self, validated_data, instance):
+
+
+        projet = Projects.objects.create(
+            title=validated_data['title'],
+            description=validated_data['description'],
+            type=validated_data['type'],
+            author_user_id=instance.user.id
+        )
+        contributors = Contributors.objects.create(
+            user_id=kwargs["user"],
+            project_id=projet.id,
+
+        )
+
+        projet.save()
+        contributors.save()
+
+        return projet
+
+
+class ContributorsSerializer(ModelSerializer):
+
+    class Meta:
+        model = Contributors
+        fields = ['user_id', 'project_id', 'projects']
+
+    def get_projets(self, instance):
+        queryset = instance.projects.filter(user_id=self.request.user)
+        serializer = ProjectsSerializer(queryset, many=True)
+        return serializer.data
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(

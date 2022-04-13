@@ -20,6 +20,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls')),
     path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('signup/', RegisterView.as_view(), name='auth_register'),
+    path('signup/', RegisterView.as_view(), name='signup'),
     path('', include(router.urls))
 ]

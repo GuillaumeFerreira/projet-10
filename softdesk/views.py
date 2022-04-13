@@ -1,5 +1,5 @@
 from softdesk.models import Projects
-from softdesk.serializers import ProjectsSerializer, RegisterSerializer
+from softdesk.serializers import ProjectsSerializer, RegisterSerializer, ContributorsSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -9,7 +9,7 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from django.contrib.auth.models import User
 
 
-class ProjectsViewset(ReadOnlyModelViewSet):
+class ProjectsViewset(ModelViewSet):
 
     serializer_class = ProjectsSerializer
     permission_classes = [IsAuthenticated]
@@ -25,6 +25,7 @@ class ProjectsViewset(ReadOnlyModelViewSet):
             'status': 'request was permitted'
         }
         return Response(content)
+
 
 
 class RegisterView(generics.CreateAPIView):
