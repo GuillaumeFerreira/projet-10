@@ -1,4 +1,4 @@
-[![forthebadge](https://forthebadge.com/images/badges/cc-0.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 
 ## SoftDesk: API RESTful avec Django REST
 
@@ -15,6 +15,3 @@ SoftDesk est un projet dans le cadre de la formation Openclassrooms. N'hésitez 
 
 Guillaume Ferreira
 
-## Licence
-
-Ce projet a été construit sous la licence Creative Commons.
