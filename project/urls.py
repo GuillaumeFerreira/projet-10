@@ -18,8 +18,8 @@ router.register('projects', ProjectsViewset, basename='projects')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-auth/', include('rest_framework.urls')),
-    path('api/login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('api/register/', RegisterView.as_view(), name='auth_register'),
-    path('api/', include(router.urls))
+    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('signup/', RegisterView.as_view(), name='auth_register'),
+    path('', include(router.urls))
 ]
