@@ -19,10 +19,10 @@ class ProjectsSerializer(ModelSerializer):
             title=validated_data['title'],
             description=validated_data['description'],
             type=validated_data['type'],
-            author_user_id=instance.user.id
+            author_user_id=instance.user.id,
         )
         contributors = Contributors.objects.create(
-            user_id=kwargs["user"],
+            user_id=instance.user.id,
             project_id=projet.id,
 
         )
