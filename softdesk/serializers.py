@@ -12,17 +12,17 @@ class ProjectsSerializer(ModelSerializer):
         fields = ['id', 'title','description','type']
 
 
-    def create(self, validated_data, instance):
+    def create(self, validated_data):
 
-
+        import ipdb; ipdb.set_trace()
         projet = Projects.objects.create(
             title=validated_data['title'],
             description=validated_data['description'],
             type=validated_data['type'],
-            author_user_id=instance.user.id,
+            author_user_id=self.context['request'].user,
         )
         contributors = Contributors.objects.create(
-            user_id=instance.user.id,
+            user_id=self.context['request'].user,
             project_id=projet.id,
 
         )

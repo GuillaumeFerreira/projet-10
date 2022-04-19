@@ -13,7 +13,7 @@ class ProjectsViewset(ModelViewSet):
 
     serializer_class = ProjectsSerializer
     permission_classes = [IsAuthenticated]
-    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    #authentication_classes = [SessionAuthentication, BasicAuthentication]
 
     def get_queryset(self):
         return Projects.objects.filter(author_user_id=self.request.user)
