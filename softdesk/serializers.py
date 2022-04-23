@@ -9,7 +9,7 @@ class ProjectsSerializer(ModelSerializer):
 
     class Meta:
         model = Projects
-        fields = ['id', 'title','description','type']
+        fields = ['id', 'title']
 
 
     def create(self, validated_data):
@@ -32,6 +32,12 @@ class ProjectsSerializer(ModelSerializer):
 
         return projet
 
+
+class ProjectsDetailSerializer(ModelSerializer):
+
+    class Meta:
+        model = Projects
+        fields = ['id', 'title','description','type']
 
 class ContributorsSerializer(ModelSerializer):
 
