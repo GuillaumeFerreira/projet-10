@@ -9,26 +9,26 @@ class ProjectsSerializer(ModelSerializer):
 
     class Meta:
         model = Projects
-        fields = ['id', 'title']
+        fields = ['id', 'title','description',"type"]
 
 
     def create(self, validated_data):
 
-        import ipdb; ipdb.set_trace()
+        #import ipdb; ipdb.set_trace()
         projet = Projects.objects.create(
             title=validated_data['title'],
             description=validated_data['description'],
             type=validated_data['type'],
             author_user_id=self.context['request'].user,
         )
-        contributors = Contributors.objects.create(
-            user_id=self.context['request'].user,
-            project_id=projet.id,
+        #contributors = Contributors.objects.create(
+        #   user_id=self.context['request'].user,
+        #   project_id=projet,
 
-        )
+        #)
 
         projet.save()
-        contributors.save()
+        #contributors.save()
 
         return projet
 
@@ -43,12 +43,13 @@ class ContributorsSerializer(ModelSerializer):
 
     class Meta:
         model = Contributors
-        fields = ['user_id', 'project_id', 'projects']
+        fields = ['user_id', 'project_id', 'id']
 
-    def get_projets(self, instance):
-        queryset = instance.projects.filter(user_id=self.request.user)
-        serializer = ProjectsSerializer(queryset, many=True)
-        return serializer.data
+    def validate(self, data):
+        if Contributors.objects.filter(project_id= data['project_id'],user_id= data['user_id']).exists():
+            raise serializers.ValidationError("User déja dans les contributeurs")
+        return data
+
 
 class RegisterSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(
