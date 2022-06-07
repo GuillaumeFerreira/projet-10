@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from softdesk.views import ProjectsViewset, RegisterView, ContributorsViewset
+from softdesk.views import ProjectsViewset, RegisterView, ContributorsViewset, IssuesViewset , CommentsViewset
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
     TokenRefreshView,
@@ -13,6 +13,8 @@ router = routers.SimpleRouter()
 # afin que l’url générée soit celle que nous souhaitons ‘/projects/’
 router.register(r'projects/(?P<project_id>[^/.]+)/users', ContributorsViewset, basename='contributors')
 router.register('projects', ProjectsViewset, basename='projects')
+router.register(r'projects/(?P<project_id>[^/.]+)/issues', IssuesViewset, basename='issues')
+router.register(r'projects/(?P<project_id>[^/.]+)/issues/(?P<issue_id>[^/.]+)/comments', CommentsViewset, basename='comments')
 
 
 urlpatterns = [

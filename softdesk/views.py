@@ -1,5 +1,5 @@
-from softdesk.models import Projects, Contributors
-from softdesk.serializers import ProjectsSerializer, RegisterSerializer, ContributorsSerializer, ProjectsDetailSerializer
+from softdesk.models import Projects, Contributors, Issues, Comments
+from softdesk.serializers import ProjectsSerializer, RegisterSerializer, ContributorsSerializer, ProjectsDetailSerializer, IssuesSerializer, CommentsSerializer, CommentsDetailSerializer, IssuesDetailSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.viewsets import ReadOnlyModelViewSet
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -43,10 +43,40 @@ class ContributorsViewset(ModelViewSet):
         qs = super().get_queryset()
         return qs.filter(project_id=self.kwargs['project_id'])
 
+class IssuesViewset(ModelViewSet):
 
+
+    serializer_class = IssuesSerializer
+    permission_classes = [IsAuthenticated]
+    queryset = Issues.objects.all()
+    detail_serializer_class = IssuesDetailSerializer
+
+    def get_queryset(self):
+
+        qs = super().get_queryset()
+        return qs.filter(project_id=self.kwargs['project_id'])
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['author_user_id'] = self.request.user
+        context['project_id'] = Projects.objects.get(id=self.kwargs['project_id'])
+        return context
 
 class RegisterView(generics.CreateAPIView):
 
     queryset = User.objects.all()
     permission_classes = [AllowAny]
     serializer_class = RegisterSerializer
+
+class CommentsViewset (ModelViewSet):
+
+    serializer_class = CommentsSerializer
+    permission_classes = [IsAuthenticated]
+    detail_serializer_class = CommentsDetailSerializer
+    queryset = Comments.objects.all()
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['author_user_id'] = self.request.user
+        context['issue_id'] = Issues.objects.get(id=self.kwargs['issue_id'])
+        return context

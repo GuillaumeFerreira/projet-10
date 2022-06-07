@@ -11,7 +11,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-
+from datetime import timedelta
+from rest_framework.settings import api_settings
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -139,5 +140,17 @@ REST_FRAMEWORK = {
             'rest_framework.permissions.IsAuthenticated',
         ]
 }
-
+REST_DURIN = {
+        "DEFAULT_TOKEN_TTL": timedelta(days=1),
+        "TOKEN_CHARACTER_LENGTH": 64,
+        "USER_SERIALIZER": None,
+        "AUTH_HEADER_PREFIX": "Token",
+        "EXPIRY_DATETIME_FORMAT": api_settings.DATETIME_FORMAT,
+        "TOKEN_CACHE_TIMEOUT": 600,
+        "REFRESH_TOKEN_ON_LOGIN": False,
+        "AUTHTOKEN_SELECT_RELATED_LIST": ["user"],
+        "API_ACCESS_CLIENT_NAME": None,
+        "API_ACCESS_EXCLUDE_FROM_SESSIONS": False,
+        "API_ACCESS_RESPONSE_INCLUDE_TOKEN": False,
+}
 #APPEND_SLASH=False
