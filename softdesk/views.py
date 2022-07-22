@@ -2,24 +2,31 @@ from softdesk.models import Projects, Contributors, Issues, Comments
 from softdesk.serializers import ProjectsSerializer, RegisterSerializer, ContributorsSerializer, ProjectsDetailSerializer, IssuesSerializer, CommentsSerializer, CommentsDetailSerializer, IssuesDetailSerializer
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.viewsets import ReadOnlyModelViewSet
-from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.permissions import IsAuthenticated, AllowAny, DjangoObjectPermissions
 from rest_framework.response import Response
 from rest_framework import generics, status
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from django.contrib.auth.models import User
 
 
+class TestPerm(IsAuthenticated):
+
+    def has_object_permission(self, request, view, obj):
+        return bool(obj.user == self.request.user)
+
+
+
 class ProjectsViewset(ModelViewSet):
 
     serializer_class = ProjectsSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [TestPerm]
     #authentication_classes = [SessionAuthentication, BasicAuthentication]
     detail_serializer_class = ProjectsDetailSerializer
     queryset = Projects.objects.all()
 
-    def get_queryset(self):
-        qs = super().get_queryset()
-        return qs.filter(author_user_id=self.request.user)
+    # def get_queryset(self):
+    #     qs = super().get_queryset()
+    #     return qs.filter(author_user_id=self.request.user)
 
     def get(self, request, *args, **kwargs):
         content = {
