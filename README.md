@@ -3,7 +3,7 @@
 ## SoftDesk: API RESTful avec Django REST
 
 
-## Instructions détaillant la configuration
+### Instructions détaillant la configuration
 #### Télécharger le projet
 ```
 git clone https://github.com/GuillaumeFerreira/projet-10.git
