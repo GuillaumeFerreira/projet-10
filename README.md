@@ -5,7 +5,9 @@
 
 ## Instructions détaillant la configuration
 #### Télécharger le projet
-> git clone https://github.com/GuillaumeFerreira/projet-10.git
+```
+git clone https://github.com/GuillaumeFerreira/projet-10.git
+```
 ou
 
 > https://github.com/GuillaumeFerreira/Projet-10/archive/refs/heads/main.zip
