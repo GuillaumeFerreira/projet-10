@@ -22,11 +22,11 @@ env\Scripts\activate.bat
 ```
 #### Installer les librairies necessaires
 ```
-pip install -r Litreview\requirements.txt
+pip install -r requirements.txt
 ```
 #### Lancer le serveur
 ```
-python Litreview\manage.py runserver
+python manage.py runserver
 ```
 
 ## Contribuer au projet
