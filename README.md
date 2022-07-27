@@ -32,7 +32,15 @@ python manage.py runserver
 ## Contribuer au projet
 
 SoftDesk est un projet dans le cadre de la formation Openclassrooms. N'hésitez pas à clôner la source et à contribuer avec vos propres fonctionnalités.
-
+Pour toutes contibutions, veuillez utiliser black et flake8
+#### Exécuter black
+```
+black projet-10
+```
+#### Exécuter flake8
+```
+flake8 projet-10
+```
 ## Auteur
 
 Guillaume Ferreira
